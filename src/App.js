@@ -9,7 +9,7 @@ import HomePage from './views/HomePage/HomePage';
 import PageHeader from './components/PageHeader/PageHeader';
 import PageMain from './components/PageMain/PageMain';
 import PageNav from './components/PageNav/PageNav';
-import MoviesSearch from './views/MovieSearch/MovieSearch';
+import MoviesSearch from './components/MovieSearch/MovieSearch';
 import OneMoviePage from './views/OneMoviePage/OneMoviePage';
 
 export default class App extends Component {

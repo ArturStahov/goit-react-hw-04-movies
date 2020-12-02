@@ -54,5 +54,3 @@ export default class OneMoviesPage extends Component {
     );
   }
 }
-
-// тут роутинг на блоки Реваивс и Каст

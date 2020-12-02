@@ -1,12 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const Header = styled.header`
-  padding: 50px 0px 50px;
-  width: 100%;
-  background-color: #ff7400;
-  box-shadow: 5px 7px 6px 7px #888888;
-`;
+import { Header } from './styledComponent';
 
 export default function PageHeader({ children }) {
   return <Header>{children}</Header>;

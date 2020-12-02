@@ -2,18 +2,7 @@ import React, { Component } from 'react';
 import fetchCast from '../../service/fetchCast';
 import createImgUrl from '../../service/createImgUrl';
 import DefaultImage from '../../img/default-image.jpg';
-import styled from 'styled-components';
-
-const ListCast = styled.ul`
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-const CastItem = styled.li`
-  max-width: 270px;
-`;
+import { ListCast, CastItem, CastImage } from './styledComponent';
 
 export default class CastBlocks extends Component {
   state = {
@@ -38,7 +27,7 @@ export default class CastBlocks extends Component {
             {this.state.cast.map(({ name, profile_path, id }) => (
               <CastItem key={id}>
                 <h3>{name}</h3>
-                <img
+                <CastImage
                   src={profile_path ? createImgUrl(profile_path) : DefaultImage}
                   alt={name}
                 />
