@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ButtonBack,
   MovieDescription,
   MovieGenresItem,
   MovieGenresList,
@@ -8,14 +9,18 @@ import {
   ContentBox,
   PosterImg,
   Container,
+  NavList,
+  NavItem,
+  NavContainer,
+  TitleNav,
 } from './styledComponent';
 import createImgUrl from '../../service/createImgUrl';
 import { NavLink } from 'react-router-dom';
 import DefaultImage from '../../img/default-image.jpg';
-
+//{match ? match.url : '/'}>
 export default function OneMovieDetail({
   movie: { original_title, poster_path, release_date, overview, genres },
-  pathUrl,
+  match,
 }) {
   return (
     <>
@@ -25,6 +30,11 @@ export default function OneMovieDetail({
           alt={original_title}
         />
         <ContentBox>
+          <ButtonBack>
+            <NavLink className="link" to={`${match.url}`}>
+              Back
+            </NavLink>
+          </ButtonBack>
           <Title>{original_title}</Title>
           <DateRelease>Release: {release_date}</DateRelease>
           <MovieGenresList>
@@ -33,17 +43,29 @@ export default function OneMovieDetail({
             ))}
           </MovieGenresList>
           <MovieDescription>{overview}</MovieDescription>
-          <div>
-            <h3>Additional Information</h3>
-            <ul>
-              <li>
-                <NavLink to={`${pathUrl}/cast`}>Cast</NavLink>
-              </li>
-              <li>
-                <NavLink to={`${pathUrl}/reviews`}>Reviews</NavLink>
-              </li>
-            </ul>
-          </div>
+          <NavContainer>
+            <TitleNav>Additional Information</TitleNav>
+            <NavList>
+              <NavItem>
+                <NavLink
+                  className="link"
+                  activeClassName="selected"
+                  to={`${match.url}/cast`}
+                >
+                  Cast
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="link"
+                  activeClassName="selected"
+                  to={`${match.url}/reviews`}
+                >
+                  Reviews
+                </NavLink>
+              </NavItem>
+            </NavList>
+          </NavContainer>
         </ContentBox>
       </Container>
     </>

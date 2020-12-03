@@ -26,9 +26,7 @@ export default class OneMoviesPage extends Component {
     return (
       <>
         <Section>
-          {movie && (
-            <OneMovieDetails pathUrl={this.props.match.url} movie={movie} />
-          )}
+          {movie && <OneMovieDetails {...this.props} movie={movie} />}
         </Section>
         <Section>
           {movie && (

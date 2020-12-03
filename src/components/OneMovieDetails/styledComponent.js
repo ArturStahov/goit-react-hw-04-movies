@@ -1,5 +1,17 @@
 import styled from 'styled-components';
 
+const ButtonBack = styled.div`
+  margin-bottom: 25px;
+  display: block;
+
+  & > .link {
+    padding: 5px 10px;
+    color: #200772;
+    font-weight: 700;
+    border: 4px double grey;
+    border-radius: 2rem;
+  }
+`;
 const Container = styled.div`
   padding-bottom: 50px;
   display: flex;
@@ -10,6 +22,7 @@ const PosterImg = styled.img`
   margin-right: 20px;
 `;
 const ContentBox = styled.div`
+  padding-top: 30px;
   max-width: 500px;
 `;
 const Title = styled.h2`
@@ -45,7 +58,44 @@ const MovieDescription = styled.p`
   margin-bottom: 40px;
 `;
 
+const NavList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 300px;
+`;
+const NavItem = styled.li`
+  & > .link {
+    padding: 5px 10px;
+    color: #200772;
+    font-weight: 700;
+    border: 4px double grey;
+    border-radius: 2rem;
+  }
+  & > .selected {
+    color: #ff7400;
+  }
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+`;
+
+const NavContainer = styled.div`
+  padding-top: 50px;
+  margin: 0 auto;
+`;
+const TitleNav = styled.h3`
+  font-size: 1.3 rem;
+  font-weight: 600;
+  color: #6a48d7;
+  margin-bottom: 25px;
+`;
+
 export {
+  ButtonBack,
+  TitleNav,
+  NavContainer,
+  NavItem,
+  NavList,
   MovieDescription,
   MovieGenresItem,
   MovieGenresList,
