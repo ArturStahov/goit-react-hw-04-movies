@@ -31,7 +31,7 @@ export default function OneMovieDetail({
         />
         <ContentBox>
           <ButtonBack>
-            <NavLink className="link" to={`${match.url}`}>
+            <NavLink className="link" to={`/`}>
               Back
             </NavLink>
           </ButtonBack>

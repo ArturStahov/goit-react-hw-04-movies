@@ -7,6 +7,7 @@ export default class MoviesSearch extends Component {
   state = {
     films: [],
     searchInput: '',
+    page: 1,
   };
 
   handlerInput = e => {
@@ -15,14 +16,35 @@ export default class MoviesSearch extends Component {
     });
   };
 
+  fetchApi = () => {
+    fetchApiSearch(this.state.searchInput, this.state.page).then(data => {
+      if (this.state.films.length < data.total_results) {
+        this.setState(prevState => {
+          return {
+            films: [...prevState.films, ...data.results],
+            page: prevState.page + 1,
+          };
+        });
+      }
+    });
+  };
+
   handlerSearchButton = () => {
     if (this.state.searchInput) {
-      fetchApiSearch(this.state.searchInput).then(data =>
-        this.setState({
-          films: data.results,
-          searchInput: '',
-        }),
-      );
+      const onEntries = (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.fetchApi();
+          }
+        });
+      };
+      const options = {
+        rootMargin: '200px',
+        threshold: 0.5,
+      };
+      const observerApi = new IntersectionObserver(onEntries, options);
+      const trackingObj = document.querySelector('#trackingObj');
+      observerApi.observe(trackingObj);
     }
   };
 
@@ -42,6 +64,7 @@ export default class MoviesSearch extends Component {
           </Button>
         </SearchBlock>
         {films.length > 0 && <MoviesList films={films} />}
+        <div id="trackingObj"></div>
       </>
     );
   }
