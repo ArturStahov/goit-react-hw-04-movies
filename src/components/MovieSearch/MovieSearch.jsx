@@ -10,6 +10,21 @@ export default class MoviesSearch extends Component {
     page: 1,
   };
 
+  componentDidMount() {
+    if (localStorage.getItem('Location')) {
+      const location = JSON.parse(localStorage.getItem('Location'));
+      console.log(location);
+      const { films, withPage, queryUserInput } = location;
+      this.setState({
+        films,
+        searchInput: queryUserInput,
+        page: withPage + 1,
+      });
+      this.regObserv();
+      localStorage.removeItem('Location');
+    }
+  }
+
   handlerInput = e => {
     this.setState({
       searchInput: e.target.value,
@@ -29,27 +44,32 @@ export default class MoviesSearch extends Component {
     });
   };
 
+  regObserv = () => {
+    const onEntries = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.fetchApi();
+        }
+      });
+    };
+    const options = {
+      rootMargin: '200px',
+      threshold: 0.5,
+    };
+    const observerApi = new IntersectionObserver(onEntries, options);
+    const trackingObj = document.querySelector('#trackingObj');
+    observerApi.observe(trackingObj);
+  };
+
   handlerSearchButton = () => {
     if (this.state.searchInput) {
-      const onEntries = (entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.fetchApi();
-          }
-        });
-      };
-      const options = {
-        rootMargin: '200px',
-        threshold: 0.5,
-      };
-      const observerApi = new IntersectionObserver(onEntries, options);
-      const trackingObj = document.querySelector('#trackingObj');
-      observerApi.observe(trackingObj);
+      this.regObserv();
     }
   };
 
   render() {
     const { films } = this.state;
+    const withPage = this.state.page - 1;
     return (
       <>
         <SearchBlock>
@@ -63,7 +83,14 @@ export default class MoviesSearch extends Component {
             S
           </Button>
         </SearchBlock>
-        {films.length > 0 && <MoviesList films={films} />}
+        {films.length > 0 && (
+          <MoviesList
+            films={films}
+            withUrl={this.props.match.url}
+            withPage={withPage}
+            queryUserInput={this.state.searchInput}
+          />
+        )}
         <div id="trackingObj"></div>
       </>
     );

@@ -11,11 +11,27 @@ import {
 import DefaultImg from '../../img/default-image.jpg';
 import createImgUrl from '../../service/createImgUrl';
 
-export default function MovieList({ films }) {
+export default function MovieList({
+  films,
+  withUrl,
+  withPage,
+  queryUserInput = '',
+}) {
   return (
     <List>
       {films.map(({ id, original_title, poster_path, release_date }) => (
-        <NavLink key={id} to={`movies/${id}`}>
+        <NavLink
+          key={id}
+          to={{
+            pathname: `movies/${id}`,
+            state: {
+              withUrl,
+              withPage,
+              queryUserInput,
+              films,
+            },
+          }}
+        >
           <ListItem>
             <Overlay>
               <Title>{original_title}</Title>

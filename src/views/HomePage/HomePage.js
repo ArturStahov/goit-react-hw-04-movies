@@ -11,6 +11,7 @@ export default class HomePage extends Component {
 
   componentDidMount() {
     InfinityScroll('#trackingObj', this.fetchApi);
+    localStorage.removeItem('Location');
   }
 
   fetchApi = () => {
@@ -27,10 +28,17 @@ export default class HomePage extends Component {
   };
 
   render() {
-    const { films } = this.state;
+    const { films, page } = this.state;
+    const withPage = page - 1;
     return (
       <>
-        {films.length > 0 && <MoviesList films={films} />}
+        {films.length > 0 && (
+          <MoviesList
+            films={films}
+            withUrl={this.props.match.url}
+            withPage={withPage}
+          />
+        )}
         <div id="trackingObj"></div>
       </>
     );

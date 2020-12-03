@@ -17,10 +17,11 @@ import {
 import createImgUrl from '../../service/createImgUrl';
 import { NavLink } from 'react-router-dom';
 import DefaultImage from '../../img/default-image.jpg';
-//{match ? match.url : '/'}>
+
 export default function OneMovieDetail({
   movie: { original_title, poster_path, release_date, overview, genres },
   match,
+  location,
 }) {
   return (
     <>
@@ -30,8 +31,15 @@ export default function OneMovieDetail({
           alt={original_title}
         />
         <ContentBox>
-          <ButtonBack>
-            <NavLink className="link" to={`/`}>
+          <ButtonBack
+            onClick={() => {
+              localStorage.setItem('Location', JSON.stringify(location.state));
+            }}
+          >
+            <NavLink
+              className="link"
+              to={location.state ? location.state.withUrl : '/'}
+            >
               Back
             </NavLink>
           </ButtonBack>
