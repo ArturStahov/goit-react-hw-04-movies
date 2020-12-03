@@ -29,10 +29,11 @@ export default function MovieList({
               withPage,
               queryUserInput,
               films,
+              elemDomId: poster_path && poster_path.slice(1, 6),
             },
           }}
         >
-          <ListItem>
+          <ListItem data-type={`${poster_path && poster_path.slice(1, 6)}`}>
             <Overlay>
               <Title>{original_title}</Title>
               <ReleaseData>

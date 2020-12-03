@@ -8,20 +8,35 @@ export default class MoviesSearch extends Component {
     films: [],
     searchInput: '',
     page: 1,
+    elemDomId: null,
   };
 
   componentDidMount() {
     if (localStorage.getItem('Location')) {
       const location = JSON.parse(localStorage.getItem('Location'));
       console.log(location);
-      const { films, withPage, queryUserInput } = location;
+      const { films, withPage, queryUserInput, elemDomId } = location;
       this.setState({
         films,
         searchInput: queryUserInput,
         page: withPage + 1,
+        elemDomId,
       });
       this.regObserv();
+
       localStorage.removeItem('Location');
+    }
+  }
+
+  componentDidUpdate(prevState, prevProps) {
+    if (prevState.elemDomId !== this.state.elemDomId) {
+      const selector = `[data-type="${this.state.elemDomId}"]`;
+      const el = document.querySelector(selector);
+      console.log(selector);
+      console.log(el);
+      if (el) {
+        el.scrollIntoView(false);
+      }
     }
   }
 
