@@ -14,6 +14,7 @@ const Input = styled.input`
   padding-left: 10px;
   outline: none;
   margin-right: 10px;
+  caret-color: #ff9200;
   &:focus {
     box-shadow: inset 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
   }

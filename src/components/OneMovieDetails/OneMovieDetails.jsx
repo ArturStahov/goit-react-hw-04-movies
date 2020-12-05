@@ -58,7 +58,10 @@ export default function OneMovieDetail({
                 <NavLink
                   className="link"
                   activeClassName="selected"
-                  to={`${match.url}/cast`}
+                  to={{
+                    pathname: `${match.url}/cast`,
+                    state: location.state,
+                  }}
                 >
                   Cast
                 </NavLink>
@@ -67,7 +70,10 @@ export default function OneMovieDetail({
                 <NavLink
                   className="link"
                   activeClassName="selected"
-                  to={`${match.url}/reviews`}
+                  to={{
+                    pathname: `${match.url}/reviews`,
+                    state: location.state,
+                  }}
                 >
                   Reviews
                 </NavLink>

@@ -22,10 +22,10 @@ export default class MoviesSearch extends Component {
         page: withPage + 1,
         elemDomId,
       });
-      this.regObserv();
 
       localStorage.removeItem('Location');
     }
+    this.regObserv();
   }
 
   componentDidUpdate(prevState, prevProps) {
@@ -62,7 +62,7 @@ export default class MoviesSearch extends Component {
   regObserv = () => {
     const onEntries = (entries, observer) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && this.state.searchInput) {
           this.fetchApi();
         }
       });
@@ -78,7 +78,10 @@ export default class MoviesSearch extends Component {
 
   handlerSearchButton = () => {
     if (this.state.searchInput) {
-      this.regObserv();
+      this.setState({
+        films: [],
+      });
+      this.fetchApi();
     }
   };
 
